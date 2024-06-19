@@ -7,5 +7,10 @@
 from HeartRate import *
 data_file = 'andrey_front.mat'
 hr_analysis = HeartRateAnalysis(data_file)
-....
+signal = hr_analysis.signal_formulation()
+filtered_signal = hr_analysis.filtering(sfilter = '2', fs = 30000, N = 3, F = [1.5, 3.5])
+hr_analysis.visualize_with_peaks(filtered_signal, fs=30000, prominence = [2.5], distance = 1, height = 2.5, figsize = (20, 7))
+hr_analysis.visualize_b_with_peaks(filtered_signal, fs=30000, prominence = [2.5], distance = 1, height = 2.5, figsize = (20, 7))
+hr_analysis.сounting_heart_rate_peaks()
+hr_analysis.сounting_heart_rate_breath_peaks()
 ```
