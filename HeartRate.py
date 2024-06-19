@@ -14,6 +14,7 @@ class HeartRateAnalysis:
         self.signal_d = None  # Initialize the signal derivative
         self.filtered_signal = None  # Initialize the filtered signal
         self.peaks = None  # Initialize the peaks
+        self.breath = None
 
     # Formulate the signal
     def signal_formulation(self):
@@ -88,12 +89,31 @@ class HeartRateAnalysis:
         plt.plot(signal, 'b')  # Plot the signal
         plt.grid()
         plt.ylabel('Frequency [Hz]')
-        plt.xlabel('Time [msec]')
+        plt.xlabel('Time')
+        plt.show()
+        
+    def visualize_b_with_peaks(self, signal, fs=30000, nperseg=2**17, noverlap=120000, vmin=40, vmax=30,
+                                        prominence = 1, distance = 1, height = 0, figsize=(20, 7)):
+        peaks = self.find_peaks_(signal, prominence=prominence, distance = distance, height=height, 
+                                 fs=fs, nperseg=nperseg, noverlap=noverlap)
+        peaks_all = self.find_peaks_(signal, prominence=prominence, distance = distance, height=0, 
+                                 fs=fs, nperseg=nperseg, noverlap=noverlap)
+        self.breath = [peak for peak in peaks_all if peak not in peaks]
+        plt.figure(figsize=figsize)
+#         plt.plot(peaks, signal[peaks], 'rx')
+        plt.plot(self.breath, signal[self.breath], 'go')
+        plt.plot(signal, 'b')
+        plt.grid()
+        plt.ylabel('Frequency [Hz]')
+        plt.xlabel('Time')
         plt.show()
         
     # Count the heart rate based on the number of peaks
     def сounting_heart_rate_peaks(self):
-        print(len(self.peaks) * (60 / 25))  # Print the heart rate
+        print('heart rate:', len(self.peaks) * (60 / 25))  # Print the heart rate
+
+    def сounting_heart_rate_breath_peaks(self):
+        print('breath:', len(self.breath) * (16 / 25))  # Print the heart rate
 
 
 
