@@ -100,7 +100,6 @@ class HeartRateAnalysis:
                                  fs=fs, nperseg=nperseg, noverlap=noverlap)
         self.breath = [peak for peak in peaks_all if peak not in peaks]
         plt.figure(figsize=figsize)
-#         plt.plot(peaks, signal[peaks], 'rx')
         plt.plot(self.breath, signal[self.breath], 'go')
         plt.plot(signal, 'b')
         plt.grid()
@@ -113,7 +112,7 @@ class HeartRateAnalysis:
         print('heart rate:', len(self.peaks) * (60 / 25))  # Print the heart rate
 
     def сounting_heart_rate_breath_peaks(self):
-        print('breath:', len(self.breath) * (16 / 25))  # Print the heart rate
+        print('breath:', len(self.breath) * (16 / 25))  # Print the breath
 
 
 
